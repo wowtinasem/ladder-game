@@ -8,22 +8,21 @@
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="🎮 사다리 타기 - 보글보글 에디션">
-<meta property="og:description" content="9명의 귀여운 캐릭터가 동시에 출발! 랜덤 사다리를 타고 누가 1등에 도착할까? 90년대 레트로 감성의 사다리 타기 게임 🕹️">
-<meta property="og:image" content="https://wowtinasem.github.io/ladder-game/og-image.png">
+<meta property="og:description" content="7명의 귀여운 캐릭터가 동시에 출발! 랜덤 사다리를 타고 누가 1등에 도착할까? 90년대 레트로 감성의 사다리 타기 게임 🕹️">
+<meta property="og:image" content="https://ladder-game-two.vercel.app/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:url" content="https://wowtinasem.github.io/ladder-game/">
+<meta property="og:url" content="https://ladder-game-two.vercel.app/">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="사다리 타기 게임">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="🎮 사다리 타기 - 보글보글 에디션">
-<meta name="twitter:description" content="9명의 귀여운 캐릭터가 동시에 출발! 랜덤 사다리를 타고 누가 1등에 도착할까? 🕹️">
-<meta name="twitter:image" content="https://wowtinasem.github.io/ladder-game/og-image.png">
+<meta name="twitter:description" content="7명의 귀여운 캐릭터가 동시에 출발! 랜덤 사다리를 타고 누가 1등에 도착할까? 🕹️">
+<meta name="twitter:image" content="https://ladder-game-two.vercel.app/og-image.png">
 
-<!-- General Meta -->
-<meta name="description" content="9명의 귀여운 캐릭터가 동시에 출발하는 레트로 90년대 감성 사다리 타기 게임. START 버튼을 누르고 누가 1등인지 확인하세요!">
+<meta name="description" content="7명의 귀여운 캐릭터가 동시에 출발하는 레트로 90년대 감성 사다리 타기 게임.">
 <meta name="theme-color" content="#1a0a2e">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DotGothic16&display=swap');
@@ -38,187 +37,185 @@
     --neon-purple: #bf00ff;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin:0; padding:0; box-sizing:border-box; }
 
-  body {
+  html, body {
+    height: 100%; overflow: hidden;
     background: var(--bg-dark);
     font-family: 'Press Start 2P', 'DotGothic16', monospace;
-    overflow-x: hidden;
-    min-height: 100vh;
     color: #fff;
   }
 
+  /* Scanlines */
   body::after {
-    content: '';
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.12) 2px, rgba(0,0,0,0.12) 4px);
-    pointer-events: none;
-    z-index: 9999;
+    content:''; position:fixed; top:0;left:0; width:100%;height:100%;
+    background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.1) 2px,rgba(0,0,0,0.1) 4px);
+    pointer-events:none; z-index:9999;
   }
 
-  .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-  .star {
-    position: absolute; background: #fff; border-radius: 50%;
-    animation: twinkle 2s infinite alternate;
-  }
-  @keyframes twinkle { 0% { opacity: 0.15; } 100% { opacity: 0.8; } }
+  /* Stars */
+  .stars { position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none; }
+  .star { position:absolute;background:#fff;border-radius:50%;animation:twinkle 2s infinite alternate; }
+  @keyframes twinkle { 0%{opacity:0.15} 100%{opacity:0.8} }
 
-  .container {
-    position: relative; z-index: 1;
-    max-width: 100%; width: 100%; margin: 0 auto; padding: 12px 20px;
+  /* === FULL VIEWPORT LAYOUT === */
+  .page {
+    position:relative; z-index:1;
+    width:100%; height:100vh;
+    display:flex; flex-direction:column;
+    padding: 8px 20px;
   }
 
-  .title-area { text-align: center; margin-bottom: 16px; animation: titleBounce 0.6s ease-out; }
+  /* Title row */
+  .title-area {
+    text-align:center; flex-shrink:0;
+    padding: 4px 0 6px;
+    animation: titleBounce 0.6s ease-out;
+  }
   @keyframes titleBounce { 0%{transform:scale(0)} 60%{transform:scale(1.15)} 100%{transform:scale(1)} }
   .title-area h1 {
-    font-size: 18px; color: var(--neon-yellow);
-    text-shadow: 0 0 10px var(--neon-yellow), 0 0 30px var(--neon-yellow), 0 0 60px var(--neon-orange);
-    letter-spacing: 2px; margin-bottom: 6px;
+    font-size: clamp(12px, 2.2vw, 22px); color:var(--neon-yellow);
+    text-shadow:0 0 10px var(--neon-yellow),0 0 30px var(--neon-yellow),0 0 60px var(--neon-orange);
+    letter-spacing:2px; margin-bottom:2px;
   }
-  .title-area .subtitle { font-size: 8px; color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
-  .coin-display { display: flex; justify-content: center; gap: 15px; margin-top: 8px; font-size: 7px; color: var(--neon-cyan); }
-  .coin-display span { text-shadow: 0 0 5px var(--neon-cyan); }
+  .title-area .subtitle { font-size: clamp(6px,1vw,9px); color:var(--neon-cyan); text-shadow:0 0 10px var(--neon-cyan); }
+  .coin-display { display:flex;justify-content:center;gap:15px;margin-top:3px;font-size:clamp(5px,0.8vw,7px);color:var(--neon-cyan); }
+  .coin-display span { text-shadow:0 0 5px var(--neon-cyan); }
 
+  /* Game board — fills remaining space */
   .game-board {
-    background: linear-gradient(180deg, #0d0221 0%, #1a0a3e 30%, #150835 100%);
-    border: 4px solid var(--neon-cyan);
+    flex: 1; min-height: 0;
+    background: linear-gradient(180deg,#0d0221 0%,#1a0a3e 30%,#150835 100%);
+    border: 3px solid var(--neon-cyan);
     border-radius: 8px;
     box-shadow: 0 0 15px var(--neon-cyan), inset 0 0 30px rgba(0,240,255,0.05);
-    padding: 18px 30px;
+    padding: 6px 24px;
+    display: flex; flex-direction: column;
     position: relative; overflow: hidden;
   }
 
   .pixel-border {
-    height: 6px;
-    background: repeating-linear-gradient(90deg, var(--neon-pink) 0px, var(--neon-pink) 8px, var(--neon-cyan) 8px, var(--neon-cyan) 16px, var(--neon-yellow) 16px, var(--neon-yellow) 24px, var(--neon-green) 24px, var(--neon-green) 32px);
-    border-radius: 3px; margin: 4px 0;
+    height:5px; flex-shrink:0;
+    background: repeating-linear-gradient(90deg,var(--neon-pink) 0px,var(--neon-pink) 8px,var(--neon-cyan) 8px,var(--neon-cyan) 16px,var(--neon-yellow) 16px,var(--neon-yellow) 24px,var(--neon-green) 24px,var(--neon-green) 32px);
+    border-radius:3px; margin:3px 0;
   }
 
-  .row { display: flex; justify-content: space-around; position: relative; z-index: 2; }
-  .char-slot { display: flex; flex-direction: column; align-items: center; flex: 1; max-width: 140px; }
-  .char-label { font-size: 8px; margin-bottom: 4px; color: #fff; font-weight: bold; text-shadow: 0 0 8px currentColor, 0 1px 2px rgba(0,0,0,0.8); }
+  /* Characters row */
+  .row { display:flex; justify-content:space-around; position:relative; z-index:2; flex-shrink:0; }
+  .char-slot { display:flex; flex-direction:column; align-items:center; flex:1; }
+  .char-label {
+    font-size:clamp(6px,1.1vw,10px); margin-bottom:3px; color:#fff; font-weight:bold;
+    text-shadow:0 0 8px currentColor, 0 1px 2px rgba(0,0,0,0.8);
+  }
   .character {
-    width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
-    font-size: 26px; border-radius: 6px; position: relative; transition: transform 0.3s; cursor: default;
+    width:clamp(32px,4.5vw,52px); height:clamp(32px,4.5vw,52px);
+    display:flex; align-items:center; justify-content:center;
+    font-size:clamp(18px,3vw,32px); border-radius:6px;
+    position:relative; transition:transform 0.3s; cursor:default;
   }
-  .character:hover { transform: scale(1.15); }
+  .character:hover { transform:scale(1.15); }
   .character::after {
-    content: ''; position: absolute; bottom: -5px; width: 28px; height: 5px;
-    background: radial-gradient(ellipse, rgba(0,0,0,0.5) 0%, transparent 70%); border-radius: 50%;
+    content:''; position:absolute; bottom:-4px; width:24px; height:4px;
+    background:radial-gradient(ellipse,rgba(0,0,0,0.5) 0%,transparent 70%); border-radius:50%;
   }
 
-  .ladder-area { position: relative; height: 540px; margin: 10px 0; z-index: 2; }
-  .ladder-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  /* Ladder canvas — fills the middle flex area */
+  .ladder-area { position:relative; flex:1; min-height:0; margin:4px 0; z-index:2; }
+  .ladder-canvas { position:absolute; top:0;left:0; width:100%;height:100%; }
 
+  /* Movers */
   .mover {
-    position: absolute; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
-    font-size: 20px; z-index: 10; filter: drop-shadow(0 0 6px rgba(255,255,255,0.7));
+    position:absolute; width:clamp(24px,3vw,36px); height:clamp(24px,3vw,36px);
+    display:flex; align-items:center; justify-content:center;
+    font-size:clamp(16px,2.2vw,24px); z-index:10;
+    filter:drop-shadow(0 0 6px rgba(255,255,255,0.7));
   }
-  .mover.arrived { animation: arriveFlash 0.4s ease-out 4; }
+  .mover.arrived { animation:arriveFlash 0.4s ease-out 4; }
   @keyframes arriveFlash { 0%,100%{filter:drop-shadow(0 0 6px rgba(255,255,255,0.7))} 50%{filter:drop-shadow(0 0 18px rgba(255,230,0,1)) brightness(1.5)} }
 
-  .dest-slot { flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; }
+  /* Destination row */
+  .dest-slot { flex:1; display:flex; flex-direction:column; align-items:center; }
 
-  /* Arrived character display above the box */
   .dest-arrived {
-    display: flex; flex-direction: column; align-items: center;
-    min-height: 52px; justify-content: flex-end; margin-bottom: 4px;
-    opacity: 0; transition: opacity 0.3s;
+    display:flex; flex-direction:column; align-items:center;
+    min-height:clamp(36px,5vw,56px); justify-content:flex-end; margin-bottom:2px;
+    opacity:0; transition:opacity 0.3s;
   }
-  .dest-arrived.show {
-    opacity: 1; animation: arriveCharPop 0.5s ease-out;
-  }
+  .dest-arrived.show { opacity:1; animation:arriveCharPop 0.5s ease-out; }
   @keyframes arriveCharPop {
-    0% { transform: scale(0) translateY(10px); opacity: 0; }
-    60% { transform: scale(1.2) translateY(-3px); opacity: 1; }
-    100% { transform: scale(1) translateY(0); opacity: 1; }
+    0%{transform:scale(0) translateY(10px);opacity:0}
+    60%{transform:scale(1.2) translateY(-3px);opacity:1}
+    100%{transform:scale(1) translateY(0);opacity:1}
   }
-  .dest-arrived-emoji { font-size: 26px; line-height: 1; }
+  .dest-arrived-emoji { font-size:clamp(18px,2.8vw,30px); line-height:1; }
   .dest-arrived-name {
-    font-size: 7px; margin-top: 2px; font-weight: bold;
-    text-shadow: 0 0 6px currentColor, 0 1px 2px rgba(0,0,0,0.9);
-    white-space: nowrap;
+    font-size:clamp(5px,0.9vw,8px); margin-top:1px; font-weight:bold;
+    text-shadow:0 0 6px currentColor,0 1px 2px rgba(0,0,0,0.9);
+    white-space:nowrap;
   }
 
   .dest-box {
-    width: 48px; height: 48px; border: 3px solid #444; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px; color: #555; background: rgba(0,0,0,0.4); position: relative; overflow: hidden;
+    width:clamp(34px,4.5vw,52px); height:clamp(34px,4.5vw,52px);
+    border:3px solid #444; border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:clamp(14px,2vw,22px); color:#555;
+    background:rgba(0,0,0,0.4); position:relative; overflow:hidden;
   }
-  .dest-box .qm { font-size: 18px; color: #666; animation: pulse 1.5s infinite; }
+  .dest-box .qm { font-size:clamp(14px,2vw,20px); color:#666; animation:pulse 1.5s infinite; }
   @keyframes pulse { 0%,100%{opacity:0.35} 50%{opacity:1} }
-  .dest-box.revealed { border-color: var(--neon-yellow); box-shadow: 0 0 15px var(--neon-yellow); animation: revealPop 0.4s ease-out; }
+  .dest-box.revealed { border-color:var(--neon-yellow); box-shadow:0 0 15px var(--neon-yellow); animation:revealPop 0.4s ease-out; }
   @keyframes revealPop { 0%{transform:scale(0.5)} 60%{transform:scale(1.2)} 100%{transform:scale(1)} }
-  .dest-box.revealed .rank { font-size: 22px; color: var(--neon-yellow); text-shadow: 0 0 10px var(--neon-yellow); }
+  .dest-box.revealed .rank { font-size:clamp(16px,2.2vw,24px); color:var(--neon-yellow); text-shadow:0 0 10px var(--neon-yellow); }
   .dest-box.revealed.r1 { border-color:#ffd700; box-shadow:0 0 25px #ffd700,0 0 50px rgba(255,215,0,0.3); }
   .dest-box.revealed.r1 .rank { color:#ffd700; }
   .dest-box.revealed.r2 { border-color:#c0c0c0; box-shadow:0 0 20px #c0c0c0; }
   .dest-box.revealed.r2 .rank { color:#c0c0c0; }
   .dest-box.revealed.r3 { border-color:#cd7f32; box-shadow:0 0 20px #cd7f32; }
   .dest-box.revealed.r3 .rank { color:#cd7f32; }
-  .dest-label { font-size: 7px; margin-top: 4px; color: #888; }
+  .dest-label { font-size:clamp(5px,0.8vw,7px); margin-top:2px; color:#888; }
 
-  .controls { text-align: center; margin-top: 18px; }
+  /* Controls row — fixed at bottom */
+  .controls { flex-shrink:0; text-align:center; padding:6px 0 4px; }
   .start-btn {
-    font-family: 'Press Start 2P', monospace; font-size: 15px; padding: 14px 38px;
-    background: linear-gradient(180deg, #ff2d95, #cc0066); color: #fff;
-    border: 4px solid #ff69b4; border-radius: 8px; cursor: pointer;
-    text-shadow: 2px 2px 0 #990044;
-    box-shadow: 0 6px 0 #990044, 0 0 20px rgba(255,45,149,0.4);
-    transition: all 0.1s; letter-spacing: 2px;
+    font-family:'Press Start 2P',monospace; font-size:clamp(10px,1.6vw,16px);
+    padding:clamp(8px,1.2vw,14px) clamp(20px,3vw,40px);
+    background:linear-gradient(180deg,#ff2d95,#cc0066); color:#fff;
+    border:3px solid #ff69b4; border-radius:8px; cursor:pointer;
+    text-shadow:2px 2px 0 #990044;
+    box-shadow:0 4px 0 #990044,0 0 20px rgba(255,45,149,0.4);
+    transition:all 0.1s; letter-spacing:2px;
   }
-  .start-btn:hover { background: linear-gradient(180deg, #ff5cad, #dd1177); box-shadow: 0 6px 0 #990044, 0 0 30px rgba(255,45,149,0.6); }
-  .start-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #990044, 0 0 20px rgba(255,45,149,0.4); }
-  .start-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-  .blink { animation: blink 0.8s infinite; }
+  .start-btn:hover { background:linear-gradient(180deg,#ff5cad,#dd1177); box-shadow:0 4px 0 #990044,0 0 30px rgba(255,45,149,0.6); }
+  .start-btn:active { transform:translateY(3px); box-shadow:0 1px 0 #990044,0 0 20px rgba(255,45,149,0.4); }
+  .start-btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+  .blink { animation:blink 0.8s infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
+  /* Result overlay */
   .result-banner {
-    display: none; text-align: center; margin-top: 14px; padding: 14px;
-    background: rgba(0,0,0,0.6); border: 2px solid var(--neon-green); border-radius: 8px;
-    box-shadow: 0 0 20px rgba(57,255,20,0.3);
+    display:none; position:absolute; bottom:50px; left:50%; transform:translateX(-50%);
+    z-index:50; text-align:center; padding:12px 24px;
+    background:rgba(0,0,0,0.85); border:2px solid var(--neon-green); border-radius:8px;
+    box-shadow:0 0 20px rgba(57,255,20,0.3);
+    max-width:90%;
   }
-  .result-banner.show { display: block; animation: slideUp 0.5s ease-out; }
-  @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
-  .result-banner h2 { font-size: 13px; color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); margin-bottom: 10px; }
-  .result-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
-  .result-item { display: flex; align-items: center; gap: 5px; padding: 4px 10px; background: rgba(255,255,255,0.05); border-radius: 4px; font-size: 8px; }
-  .result-item .medal { font-size: 15px; }
+  .result-banner.show { display:block; animation:slideUp 0.5s ease-out; }
+  @keyframes slideUp { from{transform:translateX(-50%) translateY(20px);opacity:0} to{transform:translateX(-50%) translateY(0);opacity:1} }
+  .result-banner h2 { font-size:clamp(9px,1.3vw,14px); color:var(--neon-green); text-shadow:0 0 10px var(--neon-green); margin-bottom:8px; }
+  .result-list { display:flex; flex-wrap:wrap; justify-content:center; gap:6px; }
+  .result-item { display:flex; align-items:center; gap:4px; padding:3px 8px; background:rgba(255,255,255,0.05); border-radius:4px; font-size:clamp(6px,0.9vw,9px); }
+  .result-item .medal { font-size:clamp(10px,1.4vw,16px); }
 
-  .confetti-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; }
-  .confetti-piece { position: absolute; top: -10px; animation: confettiFall linear forwards; }
+  .confetti-container { position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100; }
+  .confetti-piece { position:absolute;top:-10px;animation:confettiFall linear forwards; }
   @keyframes confettiFall { 0%{transform:translateY(0) rotate(0deg);opacity:1} 100%{transform:translateY(100vh) rotate(720deg);opacity:0} }
-
-  @media (max-width: 768px) {
-    .char-slot,.dest-slot { max-width: 80px; }
-    .character { width: 36px; height: 36px; font-size: 20px; }
-    .dest-box { width: 40px; height: 40px; }
-    .dest-arrived-emoji { font-size: 22px; }
-    .dest-arrived-name { font-size: 6px; }
-    .dest-arrived { min-height: 44px; }
-    .title-area h1 { font-size: 13px; }
-    .ladder-area { height: 400px; }
-    .start-btn { font-size: 11px; padding: 11px 26px; }
-  }
-  @media (max-width: 500px) {
-    .char-slot,.dest-slot { max-width: 50px; }
-    .character { width: 30px; height: 30px; font-size: 16px; }
-    .dest-box { width: 34px; height: 34px; font-size: 16px; }
-    .dest-arrived-emoji { font-size: 18px; }
-    .dest-arrived-name { font-size: 5px; }
-    .dest-arrived { min-height: 36px; }
-    .ladder-area { height: 340px; }
-    .char-label,.dest-label { font-size: 5px; }
-    .game-board { padding: 12px 8px; }
-  }
 </style>
 </head>
 <body>
 
 <div class="stars" id="stars"></div>
-<div class="container">
+
+<div class="page">
   <div class="title-area">
     <h1>🎮 사다리 타기 🎮</h1>
     <div class="subtitle">⭐ BUBBLE BOBBLE LADDER ⭐</div>
@@ -233,6 +230,10 @@
     </div>
     <div class="row" id="destRow"></div>
     <div class="pixel-border"></div>
+    <div class="result-banner" id="resultBanner">
+      <h2>🏆 최종 결과 🏆</h2>
+      <div class="result-list" id="resultList"></div>
+    </div>
   </div>
 
   <div class="controls">
@@ -240,308 +241,148 @@
       <span class="blink">▶</span> START <span class="blink">◀</span>
     </button>
   </div>
-
-  <div class="result-banner" id="resultBanner">
-    <h2>🏆 최종 결과 🏆</h2>
-    <div class="result-list" id="resultList"></div>
-  </div>
 </div>
+
 <div class="confetti-container" id="confettiContainer"></div>
 
 <script>
 const CHARS = [
-  { emoji:'🐱', name:'냥이', color:'#ff6b6b' },
-  { emoji:'🐶', name:'멍이', color:'#4ecdc4' },
-  { emoji:'🐸', name:'개굴', color:'#39ff14' },
-  { emoji:'🐻', name:'곰돌', color:'#cd7f32' },
-  { emoji:'🐰', name:'토끼', color:'#ff69b4' },
-  { emoji:'🦊', name:'여우', color:'#ff8c00' },
-  { emoji:'🐧', name:'펭귄', color:'#00bfff' },
-  { emoji:'🐲', name:'용이', color:'#bf00ff' },
-  { emoji:'🦁', name:'사자', color:'#ffd700' },
+  { emoji:'🐱', name:'냥이',  color:'#ff6b6b' },
+  { emoji:'🐶', name:'멍이',  color:'#4ecdc4' },
+  { emoji:'🐸', name:'개굴',  color:'#39ff14' },
+  { emoji:'🐻', name:'곰돌',  color:'#cd7f32' },
+  { emoji:'🐰', name:'토끼',  color:'#ff69b4' },
+  { emoji:'🦊', name:'여우',  color:'#ff8c00' },
+  { emoji:'🐲', name:'용이',  color:'#bf00ff' },
 ];
-const N = 9;
-let ladder = [];
-let routes = [];
-let raceOn = false;
-let arrivedCount = 0;
-let rankings = [];
+const N = 7;
+let ladder=[], routes=[], raceOn=false, arrivedCount=0, rankings=[];
 let canvas, ctx, W, H, colXs;
 
 /* ══════ Audio ══════ */
-const ac = new (window.AudioContext || window.webkitAudioContext)();
-function sfx(type) {
-  const t = ac.currentTime;
-  const sq = (f, start, dur, vol=0.1) => {
-    const o = ac.createOscillator(), g = ac.createGain();
-    o.type='square'; o.frequency.value=f;
-    g.gain.setValueAtTime(vol, t+start);
-    g.gain.exponentialRampToValueAtTime(0.001, t+start+dur);
-    o.connect(g).connect(ac.destination);
-    o.start(t+start); o.stop(t+start+dur);
-  };
-  if (type==='start') [523,659,784,1047].forEach((f,i) => sq(f, i*0.12, 0.2, 0.11));
-  if (type==='arrive') {
-    [784,988,1175,1568].forEach((f,i) => sq(f, i*0.08, 0.35, 0.09));
-    const o=ac.createOscillator(), g=ac.createGain();
-    o.type='triangle'; o.frequency.setValueAtTime(1200,t+0.3); o.frequency.exponentialRampToValueAtTime(600,t+0.7);
-    g.gain.setValueAtTime(0.07,t+0.3); g.gain.exponentialRampToValueAtTime(0.001,t+0.7);
-    o.connect(g).connect(ac.destination); o.start(t+0.3); o.stop(t+0.7);
-  }
-  if (type==='complete') [523,659,784,1047,784,1047,1319].forEach((f,i) => sq(f, i*0.15, 0.3, 0.09));
+const ac = new (window.AudioContext||window.webkitAudioContext)();
+function sfx(type){
+  const t=ac.currentTime;
+  const sq=(f,s,d,v=0.1)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='square';o.frequency.value=f;g.gain.setValueAtTime(v,t+s);g.gain.exponentialRampToValueAtTime(0.001,t+s+d);o.connect(g).connect(ac.destination);o.start(t+s);o.stop(t+s+d);};
+  if(type==='start')[523,659,784,1047].forEach((f,i)=>sq(f,i*0.12,0.2,0.11));
+  if(type==='arrive'){[784,988,1175,1568].forEach((f,i)=>sq(f,i*0.08,0.35,0.09));const o=ac.createOscillator(),g=ac.createGain();o.type='triangle';o.frequency.setValueAtTime(1200,t+0.3);o.frequency.exponentialRampToValueAtTime(600,t+0.7);g.gain.setValueAtTime(0.07,t+0.3);g.gain.exponentialRampToValueAtTime(0.001,t+0.7);o.connect(g).connect(ac.destination);o.start(t+0.3);o.stop(t+0.7);}
+  if(type==='complete')[523,659,784,1047,784,1047,1319].forEach((f,i)=>sq(f,i*0.15,0.3,0.09));
 }
 
 /* ══════ Stars ══════ */
-!function() {
-  const c = document.getElementById('stars');
-  for (let i=0;i<70;i++) {
-    const s=document.createElement('div'); s.className='star';
-    const sz=Math.random()*2.5+1;
-    Object.assign(s.style,{width:sz+'px',height:sz+'px',left:Math.random()*100+'%',top:Math.random()*100+'%',
-      animationDelay:Math.random()*2+'s',animationDuration:(Math.random()*2+1)+'s'});
-    c.appendChild(s);
-  }
-}();
+!function(){const c=document.getElementById('stars');for(let i=0;i<60;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*2.5+1;Object.assign(s.style,{width:sz+'px',height:sz+'px',left:Math.random()*100+'%',top:Math.random()*100+'%',animationDelay:Math.random()*2+'s',animationDuration:(Math.random()*2+1)+'s'});c.appendChild(s);}}();
 
 /* ══════ Board ══════ */
-function initBoard() {
-  const cr=document.getElementById('charRow'), dr=document.getElementById('destRow');
-  cr.innerHTML=''; dr.innerHTML='';
-  CHARS.forEach((ch,i) => {
+function initBoard(){
+  const cr=document.getElementById('charRow'),dr=document.getElementById('destRow');
+  cr.innerHTML='';dr.innerHTML='';
+  CHARS.forEach((ch,i)=>{
     cr.innerHTML+=`<div class="char-slot"><div class="char-label" style="color:${ch.color}">${ch.name}</div><div class="character" style="background:${ch.color}22;border:2px solid ${ch.color}">${ch.emoji}</div></div>`;
     dr.innerHTML+=`<div class="dest-slot"><div class="dest-arrived" id="da-${i}"><div class="dest-arrived-emoji"></div><div class="dest-arrived-name"></div></div><div class="dest-box" id="dest-${i}"><span class="qm">?</span><span class="rank" style="display:none"></span></div><div class="dest-label">GOAL ${i+1}</div></div>`;
   });
 }
 
-/* ══════ Classic Ladder Generation ══════ */
-function generateLadder() {
+/* ══════ Ladder Generation ══════ */
+function generateLadder(){
   canvas=document.getElementById('ladderCanvas');
   const area=document.getElementById('ladderArea');
   canvas.width=area.offsetWidth; canvas.height=area.offsetHeight;
   ctx=canvas.getContext('2d');
   W=canvas.width; H=canvas.height;
 
-  const margin = W * 0.05;
-  colXs = [];
-  for (let i=0;i<N;i++) colXs.push(margin + i*((W-2*margin)/(N-1)));
+  const margin=W*0.06;
+  colXs=[];
+  for(let i=0;i<N;i++) colXs.push(margin+i*((W-2*margin)/(N-1)));
 
-  // Generate rungs: guarantee every adjacent pair has at least 5 rungs
-  ladder = [];
-  const rows = 14;
-  const yStep = H/(rows+1);
-  const MIN_RUNGS = 5;
+  ladder=[];
+  const rows=14, yStep=H/(rows+1), MIN_RUNGS=5;
 
-  // Step 1: random generation row by row
-  for (let r=1; r<=rows; r++) {
-    const y = r * yStep;
-    let c = 0;
-    while (c < N-1) {
-      if (Math.random() < 0.5) {
-        ladder.push({ c1:c, c2:c+1, y });
-        c += 2;
-      } else {
-        c++;
-      }
-    }
+  // Step 1: random
+  for(let r=1;r<=rows;r++){
+    const y=r*yStep; let c=0;
+    while(c<N-1){if(Math.random()<0.5){ladder.push({c1:c,c2:c+1,y});c+=2;}else c++;}
   }
 
-  // Step 2: count rungs per adjacent pair and fill any gaps
-  for (let pair=0; pair<N-1; pair++) {
-    let count = ladder.filter(r => (r.c1===pair && r.c2===pair+1) || (r.c1===pair+1 && r.c2===pair)).length;
-    
-    // Collect which row-y positions are already taken for this pair
-    const usedYs = ladder
-      .filter(r => (r.c1===pair && r.c2===pair+1) || (r.c1===pair+1 && r.c2===pair))
-      .map(r => r.y);
-
-    // Build list of available y slots for this pair
-    const availableYs = [];
-    for (let r=1; r<=rows; r++) {
-      const y = r * yStep;
-      // Check this pair doesn't already have a rung here
-      const taken = usedYs.some(uy => Math.abs(uy - y) < yStep * 0.5);
-      // Also check neither column is used by another rung at this y
-      const colBlocked = ladder.some(rg =>
-        Math.abs(rg.y - y) < yStep * 0.3 &&
-        (rg.c1 === pair || rg.c2 === pair || rg.c1 === pair+1 || rg.c2 === pair+1) &&
-        !(rg.c1===pair && rg.c2===pair+1)
-      );
-      if (!taken && !colBlocked) availableYs.push(y);
+  // Step 2: guarantee min 5 per pair
+  for(let pair=0;pair<N-1;pair++){
+    let count=ladder.filter(r=>(r.c1===pair&&r.c2===pair+1)||(r.c1===pair+1&&r.c2===pair)).length;
+    const usedYs=ladder.filter(r=>(r.c1===pair&&r.c2===pair+1)||(r.c1===pair+1&&r.c2===pair)).map(r=>r.y);
+    const avail=[];
+    for(let r=1;r<=rows;r++){
+      const y=r*yStep;
+      const taken=usedYs.some(uy=>Math.abs(uy-y)<yStep*0.5);
+      const blocked=ladder.some(rg=>Math.abs(rg.y-y)<yStep*0.3&&(rg.c1===pair||rg.c2===pair||rg.c1===pair+1||rg.c2===pair+1)&&!(rg.c1===pair&&rg.c2===pair+1));
+      if(!taken&&!blocked) avail.push(y);
     }
-
-    // Add rungs until we reach minimum
-    let attempts = 0;
-    while (count < MIN_RUNGS && attempts < 30) {
-      attempts++;
-      if (availableYs.length > 0) {
-        const idx = Math.floor(Math.random() * availableYs.length);
-        const y = availableYs.splice(idx, 1)[0];
-        ladder.push({ c1:pair, c2:pair+1, y });
-        count++;
-      } else {
-        // Force add at a slightly offset y between existing rows
-        const r = Math.floor(Math.random() * rows) + 1;
-        const y = r * yStep + (Math.random()-0.5) * yStep * 0.4;
-        const duplicate = ladder.some(rg =>
-          rg.c1===pair && rg.c2===pair+1 && Math.abs(rg.y - y) < yStep * 0.3
-        );
-        if (!duplicate) {
-          ladder.push({ c1:pair, c2:pair+1, y });
-          count++;
-        }
-      }
+    let att=0;
+    while(count<MIN_RUNGS&&att<30){
+      att++;
+      if(avail.length>0){const idx=Math.floor(Math.random()*avail.length);ladder.push({c1:pair,c2:pair+1,y:avail.splice(idx,1)[0]});count++;}
+      else{const r=Math.floor(Math.random()*rows)+1;const y=r*yStep+(Math.random()-0.5)*yStep*0.4;if(!ladder.some(rg=>rg.c1===pair&&rg.c2===pair+1&&Math.abs(rg.y-y)<yStep*0.3)){ladder.push({c1:pair,c2:pair+1,y});count++;}}
     }
   }
-
-  // Sort all rungs by y for clean rendering
-  ladder.sort((a,b) => a.y - b.y);
-
+  ladder.sort((a,b)=>a.y-b.y);
   drawLadder();
   computeRoutes();
 }
 
-function drawLadder() {
+function drawLadder(){
   ctx.clearRect(0,0,W,H);
-
-  // Vertical rails
-  colXs.forEach((x,i) => {
-    ctx.save();
-    ctx.strokeStyle = CHARS[i].color;
-    ctx.lineWidth=8; ctx.globalAlpha=0.07;
-    ctx.shadowColor=CHARS[i].color; ctx.shadowBlur=14;
-    ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke();
-    ctx.restore();
-
-    ctx.save();
-    ctx.strokeStyle = CHARS[i].color;
-    ctx.lineWidth=3; ctx.globalAlpha=0.65;
-    ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke();
-    ctx.restore();
+  // Rails
+  colXs.forEach((x,i)=>{
+    ctx.save();ctx.strokeStyle=CHARS[i].color;ctx.lineWidth=8;ctx.globalAlpha=0.07;ctx.shadowColor=CHARS[i].color;ctx.shadowBlur=14;
+    ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();ctx.restore();
+    ctx.save();ctx.strokeStyle=CHARS[i].color;ctx.lineWidth=3;ctx.globalAlpha=0.65;
+    ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();ctx.restore();
   });
-
-  // Horizontal rungs
-  ladder.forEach(rung => {
-    const x1=colXs[rung.c1], x2=colXs[rung.c2], y=rung.y;
-
-    ctx.save();
-    ctx.strokeStyle='rgba(255,255,255,0.5)';
-    ctx.lineWidth=2.5;
-    ctx.beginPath(); ctx.moveTo(x1,y); ctx.lineTo(x2,y); ctx.stroke();
-    ctx.restore();
-
-    // small dots at connection
-    ctx.save();
-    ctx.fillStyle='rgba(255,255,255,0.55)';
-    [x1,x2].forEach(x => { ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2); ctx.fill(); });
-    ctx.restore();
+  // Rungs
+  ladder.forEach(rung=>{
+    const x1=colXs[rung.c1],x2=colXs[rung.c2],y=rung.y;
+    ctx.save();ctx.strokeStyle='rgba(255,255,255,0.5)';ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(x1,y);ctx.lineTo(x2,y);ctx.stroke();ctx.restore();
+    ctx.save();ctx.fillStyle='rgba(255,255,255,0.55)';
+    [x1,x2].forEach(x=>{ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();});ctx.restore();
   });
 }
 
-/* ══════ Compute route for each starting column ══════ */
-function computeRoutes() {
-  routes = [];
-  const sortedRungs = [...ladder].sort((a,b) => a.y - b.y);
-
-  for (let startCol=0; startCol<N; startCol++) {
-    const wp = [];
-    let col = startCol;
-    let curY = 0;
-    wp.push({x:colXs[col], y:0});
-
-    const used = new Set();
-    let found = true;
-    while (found) {
-      found = false;
-      for (let ri=0; ri<sortedRungs.length; ri++) {
-        if (used.has(ri)) continue;
-        const rg = sortedRungs[ri];
-        if (rg.y <= curY) continue;
-
-        let next = -1;
-        if (rg.c1===col) next=rg.c2;
-        else if (rg.c2===col) next=rg.c1;
-        if (next<0) continue;
-
-        // go down to rung, then across
-        wp.push({x:colXs[col], y:rg.y});
-        wp.push({x:colXs[next], y:rg.y});
-        col = next;
-        curY = rg.y;
-        used.add(ri);
-        found = true;
-        break;
-      }
-    }
-
-    wp.push({x:colXs[col], y:H});
-    routes.push({startCol, endCol:col, wp});
+/* ══════ Routes ══════ */
+function computeRoutes(){
+  routes=[];
+  const sorted=[...ladder].sort((a,b)=>a.y-b.y);
+  for(let sc=0;sc<N;sc++){
+    const wp=[];let col=sc,curY=0;wp.push({x:colXs[col],y:0});
+    const used=new Set();let found=true;
+    while(found){found=false;for(let ri=0;ri<sorted.length;ri++){if(used.has(ri))continue;const rg=sorted[ri];if(rg.y<=curY)continue;let next=-1;if(rg.c1===col)next=rg.c2;else if(rg.c2===col)next=rg.c1;if(next<0)continue;wp.push({x:colXs[col],y:rg.y});wp.push({x:colXs[next],y:rg.y});col=next;curY=rg.y;used.add(ri);found=true;break;}}
+    wp.push({x:colXs[col],y:H});routes.push({startCol:sc,endCol:col,wp});
   }
 }
 
-/* ══════ Path interpolation ══════ */
-function pathLen(wp) {
-  let d=0;
-  for (let i=1;i<wp.length;i++) d+=Math.hypot(wp[i].x-wp[i-1].x, wp[i].y-wp[i-1].y);
-  return d;
-}
+/* ══════ Path helpers ══════ */
+function pathLen(wp){let d=0;for(let i=1;i<wp.length;i++)d+=Math.hypot(wp[i].x-wp[i-1].x,wp[i].y-wp[i-1].y);return d;}
+function lerpPath(wp,t){t=Math.max(0,Math.min(1,t));const total=pathLen(wp);let target=t*total;for(let i=1;i<wp.length;i++){const seg=Math.hypot(wp[i].x-wp[i-1].x,wp[i].y-wp[i-1].y);if(target<=seg){const f=seg===0?0:target/seg;return{x:wp[i-1].x+(wp[i].x-wp[i-1].x)*f,y:wp[i-1].y+(wp[i].y-wp[i-1].y)*f};}target-=seg;}return{x:wp[wp.length-1].x,y:wp[wp.length-1].y};}
 
-function lerpPath(wp, t) {
-  t=Math.max(0,Math.min(1,t));
-  const total=pathLen(wp);
-  let target=t*total;
-  for (let i=1;i<wp.length;i++) {
-    const seg=Math.hypot(wp[i].x-wp[i-1].x, wp[i].y-wp[i-1].y);
-    if (target<=seg) {
-      const f=seg===0?0:target/seg;
-      return {x:wp[i-1].x+(wp[i].x-wp[i-1].x)*f, y:wp[i-1].y+(wp[i].y-wp[i-1].y)*f};
-    }
-    target-=seg;
-  }
-  return {x:wp[wp.length-1].x, y:wp[wp.length-1].y};
-}
-
-/* ══════ Draw glowing trail ══════ */
-function drawTrail(wp, t, color) {
-  const total=pathLen(wp);
-  let target=t*total;
-  ctx.save();
-  ctx.strokeStyle=color;
-  ctx.lineWidth=6; ctx.globalAlpha=0.35;
-  ctx.shadowColor=color; ctx.shadowBlur=12;
-  ctx.lineCap='round'; ctx.lineJoin='round';
-  ctx.setLineDash([]);
-  ctx.beginPath();
-  ctx.moveTo(wp[0].x, wp[0].y);
-  for (let i=1;i<wp.length;i++) {
-    const seg=Math.hypot(wp[i].x-wp[i-1].x, wp[i].y-wp[i-1].y);
-    if (target<=seg) {
-      const f=seg===0?0:target/seg;
-      ctx.lineTo(wp[i-1].x+(wp[i].x-wp[i-1].x)*f, wp[i-1].y+(wp[i].y-wp[i-1].y)*f);
-      break;
-    }
-    ctx.lineTo(wp[i].x, wp[i].y);
-    target-=seg;
-  }
-  ctx.stroke();
-  ctx.restore();
+function drawTrail(wp,t,color){
+  const total=pathLen(wp);let target=t*total;
+  ctx.save();ctx.strokeStyle=color;ctx.lineWidth=6;ctx.globalAlpha=0.35;ctx.shadowColor=color;ctx.shadowBlur=12;ctx.lineCap='round';ctx.lineJoin='round';ctx.setLineDash([]);
+  ctx.beginPath();ctx.moveTo(wp[0].x,wp[0].y);
+  for(let i=1;i<wp.length;i++){const seg=Math.hypot(wp[i].x-wp[i-1].x,wp[i].y-wp[i-1].y);if(target<=seg){const f=seg===0?0:target/seg;ctx.lineTo(wp[i-1].x+(wp[i].x-wp[i-1].x)*f,wp[i-1].y+(wp[i].y-wp[i-1].y)*f);break;}ctx.lineTo(wp[i].x,wp[i].y);target-=seg;}
+  ctx.stroke();ctx.restore();
 }
 
 /* ══════ Race ══════ */
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
-function startRace() {
-  if (raceOn) return;
-  raceOn=true; arrivedCount=0; rankings=[];
+function startRace(){
+  if(raceOn)return;
+  raceOn=true;arrivedCount=0;rankings=[];
   document.getElementById('startBtn').disabled=true;
   document.getElementById('resultBanner').classList.remove('show');
 
-  for (let i=0;i<N;i++) {
-    const b=document.getElementById(`dest-${i}`);
-    b.className='dest-box';
+  for(let i=0;i<N;i++){
+    const b=document.getElementById(`dest-${i}`);b.className='dest-box';
     b.querySelector('.qm').style.display='';
-    const rk=b.querySelector('.rank'); rk.style.display='none'; rk.textContent='';
-    const da=document.getElementById(`da-${i}`);
-    da.className='dest-arrived';
+    const rk=b.querySelector('.rank');rk.style.display='none';rk.textContent='';
+    const da=document.getElementById(`da-${i}`);da.className='dest-arrived';
     da.querySelector('.dest-arrived-emoji').textContent='';
     da.querySelector('.dest-arrived-name').textContent='';
   }
@@ -551,95 +392,71 @@ function startRace() {
 
   document.querySelectorAll('.mover').forEach(e=>e.remove());
   const area=document.getElementById('ladderArea');
+  const moverSize=Math.max(12,Math.min(area.offsetWidth*0.03,18));
 
-  // Slower: base 9s, each +0.5s random offset
-  const baseDur = 9000;
-  const offsets = shuffle([...Array(N).keys()]).map(i => i*500);
+  const baseDur=9000;
+  const offsets=shuffle([...Array(N).keys()]).map(i=>i*500);
 
-  const racers = routes.map((route,i) => {
-    const el=document.createElement('div');
-    el.className='mover';
+  const racers=routes.map((route,i)=>{
+    const el=document.createElement('div');el.className='mover';
     el.textContent=CHARS[route.startCol].emoji;
     area.appendChild(el);
-    return {el, route, duration:baseDur+offsets[i], arrived:false};
+    return{el,route,duration:baseDur+offsets[i],arrived:false};
   });
 
   let t0=null;
-
-  function frame(ts) {
-    if (!t0) t0=ts;
+  function frame(ts){
+    if(!t0)t0=ts;
     drawLadder();
-
     let allDone=true;
-
-    racers.forEach(r => {
-      if (r.arrived) { drawTrail(r.route.wp, 1, CHARS[r.route.startCol].color); return; }
+    racers.forEach(r=>{
+      if(r.arrived){drawTrail(r.route.wp,1,CHARS[r.route.startCol].color);return;}
       allDone=false;
-
       let t=(ts-t0)/r.duration;
-      if (t>=1) {
-        t=1; r.arrived=true; arrivedCount++;
+      if(t>=1){
+        t=1;r.arrived=true;arrivedCount++;
         const rank=arrivedCount;
-        rankings.push({ci:r.route.startCol, dc:r.route.endCol, rank});
-        revealDest(r.route.endCol, rank, r.route.startCol);
-        r.el.classList.add('arrived');
-        sfx('arrive');
-
-        if (arrivedCount===N)
-          setTimeout(()=>{sfx('complete');showResults();confetti();raceOn=false;document.getElementById('startBtn').disabled=false;},600);
+        rankings.push({ci:r.route.startCol,dc:r.route.endCol,rank});
+        revealDest(r.route.endCol,rank,r.route.startCol);
+        r.el.classList.add('arrived');sfx('arrive');
+        if(arrivedCount===N)setTimeout(()=>{sfx('complete');showResults();confetti();raceOn=false;document.getElementById('startBtn').disabled=false;},600);
       }
-
-      // ease in-out cubic
-      const e = t<0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
-      const pos=lerpPath(r.route.wp, e);
-      r.el.style.left=(pos.x-16)+'px';
-      r.el.style.top=(pos.y-16)+'px';
-      drawTrail(r.route.wp, e, CHARS[r.route.startCol].color);
+      const e=t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+      const pos=lerpPath(r.route.wp,e);
+      r.el.style.left=(pos.x-moverSize)+'px';
+      r.el.style.top=(pos.y-moverSize)+'px';
+      drawTrail(r.route.wp,e,CHARS[r.route.startCol].color);
     });
-
-    if (!allDone) requestAnimationFrame(frame);
+    if(!allDone)requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
 }
 
-function revealDest(dc,rank,ci) {
+function revealDest(dc,rank,ci){
   const b=document.getElementById(`dest-${dc}`);
   b.querySelector('.qm').style.display='none';
-  const rk=b.querySelector('.rank'); rk.style.display=''; rk.textContent=rank;
-  b.classList.add('revealed');
-  if (rank<=3) b.classList.add('r'+rank);
-
-  // Show arrived character + name above box
+  const rk=b.querySelector('.rank');rk.style.display='';rk.textContent=rank;
+  b.classList.add('revealed');if(rank<=3)b.classList.add('r'+rank);
   const da=document.getElementById(`da-${dc}`);
   da.querySelector('.dest-arrived-emoji').textContent=CHARS[ci].emoji;
-  const nameEl=da.querySelector('.dest-arrived-name');
-  nameEl.textContent=CHARS[ci].name;
-  nameEl.style.color=CHARS[ci].color;
+  const nm=da.querySelector('.dest-arrived-name');nm.textContent=CHARS[ci].name;nm.style.color=CHARS[ci].color;
   da.classList.add('show');
 }
 
-function showResults() {
-  const banner=document.getElementById('resultBanner');
-  const list=document.getElementById('resultList');
+function showResults(){
+  const banner=document.getElementById('resultBanner'),list=document.getElementById('resultList');
   list.innerHTML='';
-  const medals=['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣'];
+  const medals=['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣'];
   rankings.sort((a,b)=>a.rank-b.rank).forEach(r=>{
     list.innerHTML+=`<div class="result-item"><span class="medal">${medals[r.rank-1]}</span><span>${CHARS[r.ci].emoji} ${CHARS[r.ci].name}</span></div>`;
   });
   banner.classList.add('show');
 }
 
-function confetti() {
-  const c=document.getElementById('confettiContainer'); c.innerHTML='';
+function confetti(){
+  const c=document.getElementById('confettiContainer');c.innerHTML='';
   const cols=['#ff2d95','#00f0ff','#ffe600','#39ff14','#ff6b00','#bf00ff'];
-  for (let i=0;i<55;i++) {
-    const p=document.createElement('div'); p.className='confetti-piece';
-    Object.assign(p.style,{left:Math.random()*100+'%',background:cols[~~(Math.random()*cols.length)],
-      width:(Math.random()*8+5)+'px',height:(Math.random()*8+5)+'px',
-      borderRadius:Math.random()>0.5?'50%':'2px',
-      animationDuration:(Math.random()*2+2)+'s',animationDelay:Math.random()*1.5+'s'});
-    c.appendChild(p);
-  }
+  for(let i=0;i<50;i++){const p=document.createElement('div');p.className='confetti-piece';Object.assign(p.style,{left:Math.random()*100+'%',background:cols[~~(Math.random()*cols.length)],width:(Math.random()*8+5)+'px',height:(Math.random()*8+5)+'px',borderRadius:Math.random()>0.5?'50%':'2px',animationDuration:(Math.random()*2+2)+'s',animationDelay:Math.random()*1.5+'s'});c.appendChild(p);}
   setTimeout(()=>c.innerHTML='',5000);
 }
 
